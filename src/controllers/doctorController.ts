@@ -79,5 +79,41 @@ const getDoctorsbyRole = async (
     res.status(500).json({ message: error.message });
   }
 };
+const updateDoctorbyId = async (req : Request, res : Response) : Promise<void> => {
+  const { id } = req.params;
+  try{
+    const updatedDoctor = await Doctor.findByIdAndUpdate(id , {$set: req.body} , {new:false});
+    if (updatedDoctor) {
+      res.status(200).json({
+        status: 200,
+        message: "Doctor updated successfully",
+        updatedDoctor,
+      });
+    } else {
+      res.status(404).json({ status: 404, message: "Doctor not found" });
+    }
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
-export { addDoctor, getDoctors, getDoctorsbyRole };
+const deleteDoctorbyId = async (req : Request, res : Response) : Promise<void> => {
+  const { id } = req.params;
+  try{
+    const deletedDoctor = await Doctor.findByIdAndDelete(id);
+    if (deletedDoctor) {
+      res.status(200).json({
+        status: 200,
+        message: "Doctor deleted successfully",
+        deletedDoctor,
+      });
+    } else {
+      res.status(404).json({ status: 404, message: "Doctor not found" });
+    }
+  }
+  catch(error:any){
+    res.status(500).json({ message: error.message });
+  }
+}
+
+export { addDoctor, getDoctors, getDoctorsbyRole , updateDoctorbyId , deleteDoctorbyId };

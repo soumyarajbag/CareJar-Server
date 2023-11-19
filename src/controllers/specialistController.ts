@@ -34,4 +34,43 @@ const getSpecialists = async (_req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { addSpecialist, getSpecialists };
+const updateSpecialistByTitle = async (req : Request, res : Response) : Promise<void> => {
+  const { title } = req.params;
+
+  try {
+    const updatedSpecialist = await Specialist.findOneAndUpdate(
+      { title },
+      {$set: req.body} , {new:false}
+    );
+      if(updatedSpecialist){
+        res.status(200).json({ status: 200, updatedSpecialist });
+      }
+     else {
+      res.status(404).json({ status: 404, message: "Specialist not found" });
+    }
+    
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+const deleteSpecialistByTitle = async (req : Request, res : Response) : Promise<void> => {
+  const { title } = req.params;
+  try{
+    const deletedSpecialist = await Specialist.findByIdAndDelete(title);
+    if (deletedSpecialist) {
+      res.status(200).json({
+        status: 200,
+        message: "Specialist deleted successfully",
+        deletedSpecialist,
+      });
+    } else {
+      res.status(404).json({ status: 404, message: "Specialist not found" });
+    }
+  }
+  catch(error:any){
+    res.status(500).json({ message: error.message });
+  }
+}
+
+export { addSpecialist, getSpecialists , updateSpecialistByTitle , deleteSpecialistByTitle };

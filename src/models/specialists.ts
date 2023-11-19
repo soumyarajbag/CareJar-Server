@@ -10,6 +10,7 @@ const specialistSchema: Schema<ISpecialist> = new Schema<ISpecialist>({
   title: {
     type: String,
     required: true,
+    unique: true,
   },
   image: {
     type: String,
