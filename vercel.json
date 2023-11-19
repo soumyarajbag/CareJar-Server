@@ -1,19 +1,15 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "./src/index.ts",
-      "use": "@vercel/node"
-    }
+      {
+          "src": "./index.ts",
+          "use": "@vercel/node"
+      }
   ],
   "routes": [
-    {
-      "src": "/api/specialists",
-      "dest": "./src/index.ts"
-    },
-    {
-      "src": "/api/doctors",
-      "dest": "./src/index.ts"
-    }
+      {
+          "src": "/(.*)",
+          "dest": "/"
+      }
   ]
 }

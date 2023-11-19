@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
-import doctorRouter from "./routes/doctorRouter";
-import specialistRouter from "./routes/specialistRouter";
+import doctorRouter from "./src/routes/doctorRouter";
+import specialistRouter from "./src/routes/specialistRouter";
 import cors from "cors";
 import morgan from "morgan";
-import connectDB from "./config/connectDB";
+import connectDB from "./src/config/connectDB";
 import helmet from "helmet";
 const app = express();
 const port = process.env.PORT || 5000;
